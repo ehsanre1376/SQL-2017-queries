@@ -1,0 +1,8 @@
+select b.TABLE_SCHEMA 'نوع جدول اصلی',b.TABLE_NAME 'نام جدول اصلی',a.CONSTRAINT_NAME 'نام ستون مرتبط جدول اصلی',
+c.CONSTRAINT_SCHEMA 'نوع جدول فرعی',c.TABLE_NAME 'نام جدول فرعی',
+c.COLUMN_NAME 'نام ستون مرتبط جدول فرعی ',
+'select *'+ ' from '+c.CONSTRAINT_SCHEMA+'.'+c.TABLE_NAME as 'نمایش جدول فرعی'
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS a
+right JOIN INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE b ON b.CONSTRAINT_NAME = a.CONSTRAINT_NAME
+right JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE c ON c.CONSTRAINT_NAME = a.UNIQUE_CONSTRAINT_NAME
+where b.TABLE_SCHEMA = 'XLS3' and b.TABLE_NAME = 'Proforma'
